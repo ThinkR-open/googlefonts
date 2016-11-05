@@ -10,12 +10,6 @@
 #' }
 "effects"
 
-subsets <- c(
-  "latin", "latin-ext", "menu", "greek", "greek-ext", "cyrillic", "cyrillic-ext", "vietnamese",
-  "arabic", "khmer", "lao", "tamil", "bengali", "hindi", "korean"
-)
-
-
 add_family <- function(s, family){
   assert_that( is.character(family) && length(family) == 1L )
   family <- gsub( "[[:space:]]", "+", family)
@@ -32,7 +26,6 @@ add_style <- function(s, style){
 
 add_subset <- function(s, subset){
   if( !is.null(subset) ){
-    assert_that( all(subset %in% subsets) )
     s <- paste0( s, "&subset=", paste( subset, collapse = "," ) )
   }
   s
@@ -70,6 +63,9 @@ add_effect <- function(s, effect){
 #' @importFrom shiny tags
 #' @importFrom assertthat assert_that
 #' @importFrom magrittr %>%
+#' @examples
+#' googlefont( "Rancho", effect = "shadow-multiple")
+#' googlefont( "Inconsolata" )
 #' @export
 googlefont <- function(
   family = "Inconsolata",
