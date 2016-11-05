@@ -10,5 +10,9 @@ LazyData: true
 Imports:
     shiny,
     assertthat,
-    magrittr
+    magrittr,
+    jsonlite,
+    dplyr,
+    tidyr,
+    memoise
 RoxygenNote: 5.0.1

@@ -6,6 +6,7 @@
 \title{font effects}
 \format{data frame with columns
 \describe{
+\item{name}{readable name of the effect}
 \item{effect}{name of the effect}
 \item{class}{css class}
 }}

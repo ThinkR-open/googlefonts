@@ -85,3 +85,29 @@ googlefont <- function(
   tags$link( rel = "stylesheet", type = "text/css", href = url)
 
 }
+
+#' Retrieves the list of fonts
+#'
+#' @return a data frame with columns
+#' \decribe{
+#'   \item{family}{the font family}
+#'   \item{files}{}
+#' }
+#'
+#' @importFrom jsonlite fromJSON
+#' @importFrom dplyr mutate select summarise group_by left_join
+#' @importFrom magrittr %>%
+#' @importFrom tidyr gather
+#' @importFrom memoise memoise
+googlefonts <- memoise(function(){
+  url <- "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyDAkRCCAr24BAAlYC0SXK6q9oF3zn_RXO8"
+  data <- fromJSON(url)$items
+  families <- data$family
+  out <- mutate( data$files, family = families) %>%
+    gather( variant, file, -family, na.rm= TRUE) %>%
+    group_by( family ) %>%
+    summarise( files = list( set_names(file, variant) ) ) %>%
+    left_join( select(data, family, category, variants, subsets, version, lastModified), by = "family" )
+  out
+})
+

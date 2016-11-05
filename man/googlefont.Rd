@@ -21,6 +21,10 @@ googlefont(family = "Inconsolata", style = NULL, subset = NULL,
 \description{
 get google font
 }
+\examples{
+googlefont( "Rancho", effect = "shadow-multiple")
+googlefont( "Inconsolata" )
+}
 \references{
 Google Fonts. \url{https://fonts.google.com}
 }
