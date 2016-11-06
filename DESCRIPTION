@@ -2,8 +2,10 @@ Package: googlefonts
 Type: Package
 Title: Using google fonts in shiny applications
 Version: 0.1.0
-Author@R: c( person( "Romain", "Francois", role = c("aut", "cre"), email =
-    "romain@purrple.cat"), person( "purrple", "cph") )
+Authors@R: c( 
+    person( "Romain", "Francois", role = c("aut", "cre"), email = "romain@purrple.cat"), 
+    person( "purrple", role = "cph") 
+  )
 Description: Using google fonts in shiny applications.
 License: MIT + file LICENSE
 LazyData: true
@@ -14,5 +16,6 @@ Imports:
     jsonlite,
     dplyr,
     tidyr,
-    memoise
+    memoise, 
+    utils
 RoxygenNote: 5.0.1

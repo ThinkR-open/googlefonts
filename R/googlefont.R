@@ -39,9 +39,9 @@ add_text <- function(s, text){
   s
 }
 
+#' @importFrom utils data
 add_effect <- function(s, effect){
   if( !is.null(effect) ){
-    data(effects)
     assert_that( effect %in% effects$effect )
     assert_that( length(effect) == 1L )
     s <- paste0( s, "&effect=", effect )
@@ -67,7 +67,7 @@ add_effect <- function(s, effect){
 #' googlefont( "Rancho", effect = "shadow-multiple")
 #' googlefont( "Inconsolata" )
 #' @export
-googlefont <- function(
+use_google_font <- function(
   family = "Inconsolata",
   style = NULL,
   subset = NULL,
@@ -88,8 +88,12 @@ googlefont <- function(
 
 #' Retrieves the list of fonts
 #'
+#' @details the function is \code{\link[memoise]{memoise}}d to limit the number of
+#' requests to google per session.
+#'
+#' @param token a google font api token.
 #' @return a data frame with columns
-#' \decribe{
+#' \describe{
 #'   \item{family}{the font family}
 #'   \item{files}{}
 #' }
@@ -99,14 +103,18 @@ googlefont <- function(
 #' @importFrom magrittr %>%
 #' @importFrom tidyr gather
 #' @importFrom memoise memoise
-googlefonts <- memoise(function(){
-  url <- "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyDAkRCCAr24BAAlYC0SXK6q9oF3zn_RXO8"
+#' @export
+fonts <- memoise(function(token = getOption("googlefonts_token") ){
+  if( is.null(token) ){
+    stop( "no google fonts api key. get one in https://console.developers.google.com/projectselector/apis/credentials and set the 'googlefonts_token' option" )
+  }
+  url <- paste0("https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=", token )
   data <- fromJSON(url)$items
   families <- data$family
   out <- mutate( data$files, family = families) %>%
     gather( variant, file, -family, na.rm= TRUE) %>%
     group_by( family ) %>%
-    summarise( files = list( set_names(file, variant) ) ) %>%
+    summarise( files = list( setNames(file, paste0("", variant) ))) %>%   # paste0 workaround for https://github.com/hadley/dplyr/issues/2231
     left_join( select(data, family, category, variants, subsets, version, lastModified), by = "family" )
   out
 })
