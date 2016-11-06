@@ -22,8 +22,10 @@ use_google_font(family = "Inconsolata", style = NULL, subset = NULL,
 get google font
 }
 \examples{
-googlefont( "Rancho", effect = "shadow-multiple")
-googlefont( "Inconsolata" )
+\dontrun{
+use_google_font( "Rancho", effect = "shadow-multiple")
+use_google_font( "Inconsolata" )
+}
 }
 \references{
 Google Fonts. \url{https://fonts.google.com}

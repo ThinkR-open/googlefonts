@@ -64,8 +64,10 @@ add_effect <- function(s, effect){
 #' @importFrom assertthat assert_that
 #' @importFrom magrittr %>%
 #' @examples
-#' googlefont( "Rancho", effect = "shadow-multiple")
-#' googlefont( "Inconsolata" )
+#' \dontrun{
+#' use_google_font( "Rancho", effect = "shadow-multiple")
+#' use_google_font( "Inconsolata" )
+#' }
 #' @export
 use_google_font <- function(
   family = "Inconsolata",
@@ -103,6 +105,11 @@ use_google_font <- function(
 #' @importFrom magrittr %>%
 #' @importFrom tidyr gather
 #' @importFrom memoise memoise
+#' @examples
+#' \dontrun{
+#'   library("dplyr")
+#'   filter( fonts(), grepl("^Robo", family) )
+#' }
 #' @export
 fonts <- memoise(function(token = getOption("googlefonts_token") ){
   if( is.null(token) ){

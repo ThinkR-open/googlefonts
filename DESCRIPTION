@@ -9,6 +9,7 @@ Authors@R: c(
 Description: Using google fonts in shiny applications.
 License: MIT + file LICENSE
 LazyData: true
+Suggests: dplyr
 Imports:
     shiny,
     assertthat,

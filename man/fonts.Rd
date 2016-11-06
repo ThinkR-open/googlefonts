@@ -23,4 +23,10 @@ Retrieves the list of fonts
 the function is \code{\link[memoise]{memoise}}d to limit the number of
 requests to google per session.
 }
+\examples{
+\dontrun{
+  library("dplyr")
+  filter( fonts(), grepl("^Robo", family) )
+}
+}
 
