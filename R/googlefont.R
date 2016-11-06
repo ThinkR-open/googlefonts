@@ -119,3 +119,31 @@ fonts <- memoise(function(token = getOption("googlefonts_token") ){
   out
 })
 
+#' check if the font is available
+#'
+#' @param family font family
+#' @param variant font variant, .e.g \code{"italic"}
+#' @param subset font subset, e.g. \code{"latin"}
+#' @examples
+#' \dontrun{
+#'   has_font( "Inconsolata")
+#' }
+#' @importFrom dplyr filter
+#' @export
+has_font <- function( family, variant, subset) {
+  assert_that( length(family) == 1L )
+  f <- fonts()
+  if( ! family %in% f$family  ) return(FALSE)
+
+  data <- filter( f, family == family )
+  if( !missing(variant) ){
+    if( ! variant %in% data$variants) return(FALSE)
+  }
+
+  if( !missing(subset) ){
+    if( ! subset %in% data$subsets) return(FALSE)
+  }
+
+  TRUE
+}
+
