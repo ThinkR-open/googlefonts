@@ -18,5 +18,6 @@ Imports:
     dplyr,
     tidyr,
     memoise, 
-    utils
+    utils,
+    htmlwidgets
 RoxygenNote: 5.0.1
