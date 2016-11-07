@@ -22,14 +22,16 @@ GoogleFont <- function(width = NULL, height = NULL, elementId = NULL) {
 #'
 #' @name GoogleFont-shiny
 #'
+#' @importFrom htmlwidgets shinyWidgetOutput
 #' @export
 GoogleFontOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'GoogleFont', width, height, package = 'googlefonts')
+  shinyWidgetOutput(outputId, 'GoogleFont', width, height, package = 'googlefonts')
 }
 
 #' @rdname GoogleFont-shiny
+#' @importFrom htmlwidgets shinyRenderWidget
 #' @export
 renderGoogleFont <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, GoogleFontOutput, env, quoted = TRUE)
+  shinyRenderWidget(expr, GoogleFontOutput, env, quoted = TRUE)
 }
